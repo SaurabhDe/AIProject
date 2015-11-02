@@ -36,6 +36,8 @@ public class Main {
         		System.out.print(schedule [ i*5 + j ]  + " ");
         	System.out.println();
         }
+        System.out.println("----------------------------------------------");
+
         
     }
 }
