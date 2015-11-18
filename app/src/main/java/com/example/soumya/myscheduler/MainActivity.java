@@ -16,7 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -66,6 +70,8 @@ public class MainActivity extends AppCompatActivity
             case 3:
                 mTitle = getString(R.string.title_section3);
                 break;
+            case 4:
+                mTitle = getString(R.string.title_section4);
         }
     }
 
@@ -114,6 +120,7 @@ public class MainActivity extends AppCompatActivity
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private TaskAdapter taskAdapter;
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -134,6 +141,19 @@ public class MainActivity extends AppCompatActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+            ArrayList<Tasks> objects = new ArrayList<Tasks>();
+            objects.add(new Tasks("Assignment", "DMG", new Date(10000)));
+            objects.add(new Tasks("Project", "DMG", new Date(20000)));
+            objects.add(new Tasks("Assignment", "PSOSM", new Date(30000)));
+            objects.add(new Tasks("Project", "PSOSM", new Date(40000)));
+            objects.add(new Tasks("Assignment", "Program Analysis", new Date(50000)));
+            objects.add(new Tasks("Project", "Program Analysis", new Date(60000)));
+            objects.add(new Tasks("Assignment", "Artificial Intelligence", new Date(70000)));
+            objects.add(new Tasks("Project", "Artificial Intelligence", new Date(80000)));
+            TaskAdapter taskAdapter = new TaskAdapter(getActivity(), objects);
+            ListView listView = (ListView) rootView.findViewById(R.id.listview_tasks);
+            listView.setAdapter(taskAdapter);
             return rootView;
         }
 
