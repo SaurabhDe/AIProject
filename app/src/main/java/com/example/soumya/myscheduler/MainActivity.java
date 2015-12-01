@@ -5,19 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import com.alamkanak.weekview.WeekView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +26,7 @@ public class MainActivity extends AppCompatActivity
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
+    private static WeekView mWeekView;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -53,9 +51,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+
+        Fragment objFragment = null;
+        switch(position) {
+            case 0:
+                objFragment = new DashboardFragment();
+                break;
+            case 1:
+                objFragment = new CalenderFragment();
+                break;
+            case 2:
+                objFragment = new TasksFragment();
+                break;
+            case 3:
+                objFragment = new ExamsFragment();
+                break;
+        }
+        FragmentManager fragmentManager1 = getSupportFragmentManager();
+        fragmentManager1.beginTransaction()
+                .replace(R.id.container, objFragment)
                 .commit();
     }
 
@@ -141,19 +155,6 @@ public class MainActivity extends AppCompatActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-            ArrayList<Tasks> objects = new ArrayList<Tasks>();
-            objects.add(new Tasks("Assignment", "DMG", new Date(10000)));
-            objects.add(new Tasks("Project", "DMG", new Date(20000)));
-            objects.add(new Tasks("Assignment", "PSOSM", new Date(30000)));
-            objects.add(new Tasks("Project", "PSOSM", new Date(40000)));
-            objects.add(new Tasks("Assignment", "Program Analysis", new Date(50000)));
-            objects.add(new Tasks("Project", "Program Analysis", new Date(60000)));
-            objects.add(new Tasks("Assignment", "Artificial Intelligence", new Date(70000)));
-            objects.add(new Tasks("Project", "Artificial Intelligence", new Date(80000)));
-            TaskAdapter taskAdapter = new TaskAdapter(getActivity(), objects);
-            ListView listView = (ListView) rootView.findViewById(R.id.listview_tasks);
-            listView.setAdapter(taskAdapter);
             return rootView;
         }
 
@@ -164,5 +165,4 @@ public class MainActivity extends AppCompatActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
-
 }

@@ -1,5 +1,8 @@
 package com.example.soumya.myscheduler;
 
+import android.widget.EditText;
+import android.widget.Spinner;
+
 import java.util.Date;
 
 /**
@@ -13,9 +16,9 @@ public class Tasks {
     private int noOfHoursRequired;  // Default is 3
     private boolean completed;
     private String notes;
-    private int noOfSubTypes;
-    private Tasks[] subTypes;
 
+//    private int noOfSubTypes;
+//    private Tasks[] subTypes;
     public Tasks(String name, String subject, Date dueOnDate) {
         this(name, subject, dueOnDate, 1, 3, false, "", 0, null);
     }
@@ -24,6 +27,10 @@ public class Tasks {
         this(name, subject, dueOnDate, priority, 3, false, "", 0, null);
     }
 
+
+    public Tasks(String name, String subject, Date dueOnDate, int priority, int noOfHoursRequired) {
+        this(name, subject, dueOnDate, priority, noOfHoursRequired, false, null, 0, null);
+    }
     public Tasks(String name, String subject, Date dueOnDate, int priority, String notes) {
         this(name, subject, dueOnDate, priority, 3, false, notes, 0, null);
     }
@@ -37,8 +44,8 @@ public class Tasks {
         this.noOfHoursRequired = noOfHoursRequired;
         this.completed = completed;
         this.notes = notes;
-        this.noOfSubTypes = noOfSubTypes;
-        this.subTypes = subTypes;
+//        this.noOfSubTypes = noOfSubTypes;
+//        this.subTypes = subTypes;
     }
 
     public String getName() {
@@ -88,5 +95,4 @@ public class Tasks {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
-
 }
