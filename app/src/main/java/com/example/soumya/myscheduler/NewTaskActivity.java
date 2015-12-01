@@ -26,8 +26,16 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -43,7 +51,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
 
@@ -74,7 +82,6 @@ public class NewTaskActivity extends AppCompatActivity {
 
         final java.text.DateFormat formatter= new SimpleDateFormat("dd/MM/yyyy -HH:mm");
 
-
         DoneButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -89,9 +96,25 @@ public class NewTaskActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please enter Date in correct Format", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Task Made", Toast.LENGTH_SHORT).show();
-                    SharedPreferences pref = getSharedPreferences("TASK_DATA", Context.MODE_PRIVATE);
+                    SharedPreferences pref = getSharedPreferences("DATA", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putString("")
+                    ArrayList<Tasks> currentTasks = new ArrayList<Tasks>();
+                    try{
+                        currentTasks = (ArrayList<Tasks>) Serializer.DeSerializer(pref.getString("Task Made",
+                                Serializer.Serializer(new ArrayList<Tasks>())));
+                        currentTasks.add(newTask);
+                        System.out.println(editor.toString());
+                        for (int i = 0;i<currentTasks.size();i++) {
+                            Log.v("Extra", currentTasks.get(i).toString());
+                        }
+                        editor.putString("Task Made", Serializer.Serializer(currentTasks));
+                        editor.commit();
+                        System.out.println(editor.toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
                 }
             }
         });
