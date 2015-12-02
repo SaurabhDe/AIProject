@@ -24,6 +24,10 @@
             android:name=".NewTaskActivity"
             android:label="@string/title_activity_new_task" >
         </activity>
+        <activity
+            android:name=".DayViewActivity"
+            android:label="@string/title_activity_day_view" >
+        </activity>
     </application>
 
 </manifest>

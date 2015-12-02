@@ -24,6 +24,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.+'
     compile 'com.github.alamkanak:android-week-view:1.2.3'
     compile 'com.android.support:support-v4:22.2.+'
-    compile files('libs/gson-2.2.2-sources.jar')
+//    compile files('libs/gson-2.2.2-sources.jar')
     compile files('libs/gson-2.3.1.jar')
+    compile 'com.github.alamkanak:android-week-view:1.2.3'
 }

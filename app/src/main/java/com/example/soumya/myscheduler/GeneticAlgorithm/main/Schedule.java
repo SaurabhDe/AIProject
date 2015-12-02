@@ -10,9 +10,9 @@ import java.util.HashMap;
 
 public class Schedule {
 
-    public static ArrayList<Tasks> getFinalSchedule(ArrayList<Tasks> tasksList) {
-    	
-        EventList eventList = new EventList();
+    public static ArrayList<Tasks> getFinalSchedule(ArrayList<Tasks> tasksList , int scheduleCapacity) {
+
+        EventList eventList = new EventList(scheduleCapacity);
         for(Tasks t : tasksList)
             eventList.addEvent(t);
 

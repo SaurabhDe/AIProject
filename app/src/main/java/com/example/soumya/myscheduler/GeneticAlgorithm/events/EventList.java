@@ -14,14 +14,14 @@ public class EventList {
 	private ArrayList<Integer> eventIDs;
 	private int scheduleCapacity;
 
-	public EventList()
+	public EventList(int scheduleCapacity)
     {
         this.eventList = new ArrayList<>();
         this.eventIDIndexMap =  new HashMap<>();
         this.eventNameIndexMap =  new HashMap<>();
         this.eventIDNameMap = new HashMap<>();
         this.eventIDs  = new ArrayList<>();
-        this.scheduleCapacity = 0;
+        this.scheduleCapacity = scheduleCapacity;
     }
 
 	public void addEvent(Tasks task) {

@@ -1,6 +1,7 @@
 package com.example.soumya.myscheduler;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -53,24 +54,32 @@ public class MainActivity extends AppCompatActivity
         // update the main content by replacing fragments
 
         Fragment objFragment = null;
+        FragmentManager fragmentManager1 = getSupportFragmentManager();
         switch(position) {
             case 0:
                 objFragment = new DashboardFragment();
+                fragmentManager1.beginTransaction()
+                        .replace(R.id.container, objFragment)
+                        .commit();
                 break;
             case 1:
-                objFragment = new CalenderFragment();
+                Intent intent = new Intent(this, DayViewActivity.class);
+                startActivity(intent);
                 break;
             case 2:
                 objFragment = new TasksFragment();
+                fragmentManager1.beginTransaction()
+                        .replace(R.id.container, objFragment)
+                        .commit();
                 break;
             case 3:
                 objFragment = new ExamsFragment();
+                fragmentManager1.beginTransaction()
+                        .replace(R.id.container, objFragment)
+                        .commit();
                 break;
         }
-        FragmentManager fragmentManager1 = getSupportFragmentManager();
-        fragmentManager1.beginTransaction()
-                .replace(R.id.container, objFragment)
-                .commit();
+
     }
 
     public void onSectionAttached(int number) {

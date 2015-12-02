@@ -6,7 +6,11 @@
         <item name="colorPrimary">#AFB42B</item>
         <item name="colorPrimaryDark">#CDDC39</item>
         <item name="colorAccent">#9E9E9E</item>
-
+        <item name="android:textColorPrimary">#212121</item>
+        <item name="actionMenuTextColor">@color/toolbar_text</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
 </resources>

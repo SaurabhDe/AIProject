@@ -51,10 +51,11 @@
         android:layout_height="46dp"
         android:id="@+id/completedCheckBox"
         android:clickable="true"
-        android:enabled="false"
+        android:enabled="true"
         android:layout_gravity="center_horizontal|right"
         android:layout_marginLeft="10px"
         android:layout_marginTop="10px"
-        android:layout_marginRight="10px" />
+        android:layout_marginRight="10px"
+        />
 
 </LinearLayout>

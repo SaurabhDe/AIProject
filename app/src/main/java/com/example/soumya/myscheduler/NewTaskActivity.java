@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.soumya.myscheduler.GeneticAlgorithm.main.Schedule;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -103,6 +104,14 @@ public class NewTaskActivity extends AppCompatActivity {
                         currentTasks = (ArrayList<Tasks>) Serializer.DeSerializer(pref.getString("Task Made",
                                 Serializer.Serializer(new ArrayList<Tasks>())));
                         currentTasks.add(newTask);
+
+                        for (int i = 0;i<currentTasks.size();i++) {
+                            Log.v("Extra", currentTasks.get(i).toString());
+                        }
+
+                        //Running GA
+                        currentTasks = Schedule.getFinalSchedule(currentTasks , 4);
+
                         System.out.println(editor.toString());
                         for (int i = 0;i<currentTasks.size();i++) {
                             Log.v("Extra", currentTasks.get(i).toString());
