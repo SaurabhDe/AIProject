@@ -91,6 +91,7 @@ public class BlockFragment extends android.support.v4.app.Fragment {
                         }
 
                         System.out.println(editor.toString());
+                        Log.v("Extra", "Blocked Tasks");
                         for (int i = 0; i < currentTasks.size(); i++) {
                             Log.v("Extra", currentTasks.get(i).toString());
                         }

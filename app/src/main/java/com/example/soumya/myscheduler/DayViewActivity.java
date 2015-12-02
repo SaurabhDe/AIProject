@@ -1,5 +1,7 @@
 package com.example.soumya.myscheduler;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.RectF;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -137,12 +139,59 @@ public class DayViewActivity extends AppCompatActivity implements WeekView.Month
         });
     }
 
+    public int getRandomColor()
+    {
+        int i = (int)(Math.random()*4);
+        if(i == 0)
+            return R.color.event_color_01;
+        else if ( i == 1)
+            return R.color.event_color_02;
+        else if ( i == 2 )
+            return  R.color.event_color_03;
+        else
+            return R.color.event_color_04;
+    }
+
+    public void addEvent(int startHr , int startMin , List<WeekViewEvent> events , int newYear, int newMonth)
+    {
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, startHr);
+        startTime.set(Calendar.MINUTE, startMin);
+        startTime.set(Calendar.MONTH, newMonth-1);
+        startTime.set(Calendar.YEAR, newYear);
+        Calendar endTime = (Calendar) startTime.clone();
+        endTime.add(Calendar.HOUR, 1);      //1 hr always
+        endTime.set(Calendar.MONTH, newMonth-1);
+        WeekViewEvent event = new WeekViewEvent(1, getEventTitle(startTime), startTime, endTime);
+        event.setColor(getResources().getColor( this.getRandomColor() ));
+        events.add(event);
+    }
+
     @Override
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
 
         // Populate the week view with some events.
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
-    
+
+        //Get Events List
+        SharedPreferences pref = this.getSharedPreferences("DATA", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        ArrayList<Tasks> uncompletedTasks = new ArrayList<Tasks>();
+        ArrayList<Tasks> completedTasks = new ArrayList<Tasks>();
+        ArrayList<Block> blockedList = new ArrayList<Block>();
+        try{
+            uncompletedTasks = (ArrayList<Tasks>) Serializer.DeSerializerTasks(pref.getString("Uncompleted_Tasks",
+                    Serializer.SerializerTasks(new ArrayList<Tasks>())));
+            completedTasks = (ArrayList<Tasks>) Serializer.DeSerializerTasks(pref.getString("Completed_Tasks",
+                    Serializer.SerializerTasks(new ArrayList<Tasks>())));
+            blockedList = (ArrayList<Block>) Serializer.DeSerializerBlock(pref.getString("Blocked_Tasks",
+                    Serializer.SerializerBlock(new ArrayList<Block>())));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
         Calendar startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 3);
         startTime.set(Calendar.MINUTE, 0);

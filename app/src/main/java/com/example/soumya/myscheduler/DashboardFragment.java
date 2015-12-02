@@ -2,6 +2,7 @@ package com.example.soumya.myscheduler;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,12 +23,14 @@ public class DashboardFragment extends android.support.v4.app.Fragment {
 
     CheckBox mcompletedBox;
     View rootView;
+    TaskAdapterForScheduling taskAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
         SharedPreferences pref = this.getActivity().getSharedPreferences("DATA", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         ArrayList<Tasks> currentTasks = new ArrayList<Tasks>();
@@ -37,9 +41,9 @@ public class DashboardFragment extends android.support.v4.app.Fragment {
             e.printStackTrace();
         }
 
-        final TaskAdapter taskAdapter = new TaskAdapter(getActivity(), currentTasks);
+        taskAdapter = new TaskAdapterForScheduling(getActivity(), currentTasks);
 
-        ListView listView = (ListView) rootView.findViewById(R.id.listview_tasks);
+        ListView listView = (ListView) rootView.findViewById(R.id.listview_tasksSchedule);
         listView.setAdapter(taskAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -50,26 +54,25 @@ public class DashboardFragment extends android.support.v4.app.Fragment {
             }
         });
 
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Button myButton = (Button) rootView.findViewById(R.id.runScheduleButton);
+        final ArrayList<Tasks> finalCurrentTasks = currentTasks;
+        myButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View item,
-                                    int position, long id) {
-                Tasks task = taskAdapter.getItem(position);
-                task.toggleChecked();
-                TaskAdapter.ViewHolder viewHolder = (TaskAdapter.ViewHolder) item.getTag();
-                viewHolder.completedCheckBox.setChecked(task.isCompleted());
-                for (int i = 0; i < taskAdapter.getCount(); i++) {
-                    Tasks task1 = taskAdapter.getItem(i);
-                    if (task1.isCompleted()) {
-                        Toast.makeText(getActivity(), task1.getName() + " is Checked!!", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                StringBuffer responseText = new StringBuffer();
+                responseText.append("The following were selected...\n");
+                ArrayList<Tasks> tasksToBeScheduledList = finalCurrentTasks;
+                for (int i = 0; i < tasksToBeScheduledList.size(); i++) {
+                    Tasks task = tasksToBeScheduledList.get(i);
+                    if (task.isCompleted()) {
+                        responseText.append("\n" + task.getName());
                     }
                 }
+
+                Toast.makeText(getActivity(), responseText, Toast.LENGTH_LONG).show();
+
             }
-        });*/
-
-
-
+        });
         return rootView;
     }
-
 }

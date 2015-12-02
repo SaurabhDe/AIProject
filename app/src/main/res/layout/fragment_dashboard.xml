@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Run Schedule"
-        android:id="@+id/checkBoxCompletedTasks"/>
+        android:id="@+id/runScheduleButton"/>
 
-    <ListView android:id="@+id/listview_tasks"
+    <ListView android:id="@+id/listview_tasksSchedule"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
