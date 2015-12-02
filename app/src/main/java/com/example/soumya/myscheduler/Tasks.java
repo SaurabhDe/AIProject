@@ -4,12 +4,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
  * Created by Soumya on 18-11-2015.
  */
-public class Tasks implements Serializable{
+public class Tasks implements Serializable, Cloneable, Comparable{
     private String name;
     private String subject;
     private Date dueOnDate;
@@ -111,4 +112,33 @@ public class Tasks implements Serializable{
                 ", completed=" + completed +
                 '}';
     }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public Tasks getClone() {
+        try {
+            return (Tasks)this.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void toggleChecked() {
+        completed = !completed;
+    }
+
+    @Override
+    public int compareTo(Object another) {
+        Tasks temp = (Tasks) another;
+        if(this.completed == temp.completed && this.name.equals(temp.name) && this.subject.equals(temp.subject)) {
+            return 0;
+        }
+        return -1;
+    }
+
+
 }

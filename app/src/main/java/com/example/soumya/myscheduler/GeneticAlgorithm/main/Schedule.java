@@ -7,6 +7,7 @@ import com.example.soumya.myscheduler.Tasks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Schedule {
 
@@ -25,12 +26,12 @@ public class Schedule {
         HashMap<Integer,String> map = eventList.getEventIDNameMap();
 
         ArrayList<Tasks> result = new ArrayList<>();
-        for(int i = 0 ; i< schedule.length ; i++) {
+        for(int i = 0 ; i < schedule.length ; i++) {
             Integer ID = Integer.parseInt(schedule[i]);
             String EventName = map.get(ID);
 
             int index = tasksList.indexOf(EventName);
-            result.add(tasksList.get(index));
+            result.add(tasksList.get(index).getClone());
         }
         return result;
     }

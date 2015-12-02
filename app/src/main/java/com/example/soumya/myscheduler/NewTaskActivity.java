@@ -88,8 +88,8 @@ public class NewTaskActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Tasks newTask = null;
                 try {
-                    newTask = new Tasks(nameTask.getText().toString(), subjectTask.getText().toString(),
-                            (Date)formatter.parse(dueOnTask.getText().toString()), Integer.parseInt(priorityTask.getSelectedItem().toString()), Integer.parseInt(noOfHoursTask.getText().toString()));
+                    newTask = new Tasks(nameTask.getText().toString().trim(), subjectTask.getText().toString().trim(),
+                            (Date)formatter.parse(dueOnTask.getText().toString().trim()), Integer.parseInt(priorityTask.getSelectedItem().toString().trim()), Integer.parseInt(noOfHoursTask.getText().toString().trim()));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -100,8 +100,8 @@ public class NewTaskActivity extends AppCompatActivity {
                     SharedPreferences pref = getSharedPreferences("DATA", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     ArrayList<Tasks> currentTasks = new ArrayList<Tasks>();
-                    try{
-                        currentTasks = (ArrayList<Tasks>) Serializer.DeSerializer(pref.getString("Task Made",
+                    try {
+                        currentTasks = (ArrayList<Tasks>) Serializer.DeSerializer(pref.getString("Uncompleted_Tasks",
                                 Serializer.Serializer(new ArrayList<Tasks>())));
                         currentTasks.add(newTask);
 
@@ -109,14 +109,14 @@ public class NewTaskActivity extends AppCompatActivity {
                             Log.v("Extra", currentTasks.get(i).toString());
                         }
 
-                        //Running GA
+                        /*//Running GA
                         currentTasks = Schedule.getFinalSchedule(currentTasks , 4);
-
+*/
                         System.out.println(editor.toString());
                         for (int i = 0;i<currentTasks.size();i++) {
                             Log.v("Extra", currentTasks.get(i).toString());
                         }
-                        editor.putString("Task Made", Serializer.Serializer(currentTasks));
+                        editor.putString("Uncompleted_Tasks", Serializer.Serializer(currentTasks));
                         editor.commit();
                         System.out.println(editor.toString());
                     } catch (Exception e) {
