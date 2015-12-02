@@ -40,8 +40,8 @@ public class TasksFragment extends android.support.v4.app.Fragment {
         SharedPreferences.Editor editor = pref.edit();
         ArrayList<Tasks> currentTasks = new ArrayList<Tasks>();
         try{
-            currentTasks = (ArrayList<Tasks>) Serializer.DeSerializer(pref.getString("Uncompleted_Tasks",
-                    Serializer.Serializer(new ArrayList<Tasks>())));
+            currentTasks = (ArrayList<Tasks>) Serializer.DeSerializerTasks(pref.getString("Uncompleted_Tasks",
+                    Serializer.SerializerTasks(new ArrayList<Tasks>())));
         } catch (Exception e) {
             e.printStackTrace();
         }

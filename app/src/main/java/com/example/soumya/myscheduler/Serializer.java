@@ -21,13 +21,13 @@ public class Serializer {
     public static final java.text.DateFormat inputFormat= new SimpleDateFormat("dd/MM/yyyy -HH:mm");
     public static final java.text.DateFormat outputFormat= new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a");
 
-    public static String Serializer(ArrayList<Tasks> list) {
+    public static String SerializerTasks(ArrayList<Tasks> list) {
         Gson gson = new Gson();
         String jsonString = gson.toJson(list);
         return jsonString;
     }
 
-    public static ArrayList<Tasks> DeSerializer(String jsonString) throws JSONException, ParseException {
+    public static ArrayList<Tasks> DeSerializerTasks(String jsonString) throws JSONException, ParseException {
         JSONArray js = new JSONArray(jsonString);
         ArrayList<Tasks> answer = new ArrayList<Tasks>();
         JSONObject j;
@@ -40,6 +40,27 @@ public class Serializer {
                     Integer.parseInt(j.getString("noOfHoursRequired")),
                     Boolean.parseBoolean(j.getString("completed")))
                     );
+        }
+        return answer;
+    }
+
+
+    public static String SerializerBlock(ArrayList<Block> list) {
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(list);
+        return jsonString;
+    }
+
+    public static ArrayList<Block> DeSerializerBlock(String jsonString) throws JSONException, ParseException {
+        JSONArray js = new JSONArray(jsonString);
+        ArrayList<Block> answer = new ArrayList<Block>();
+        JSONObject j;
+        for (int i=0;i<js.length();i++) {
+            j = js.getJSONObject(i);
+            answer.add(new Block(j.getString("name"),
+                            (Date)outputFormat.parse(j.getString("startTime")),
+                            (Date)outputFormat.parse(j.getString("endTime")))
+            );
         }
         return answer;
     }

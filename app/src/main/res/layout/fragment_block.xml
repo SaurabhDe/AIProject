@@ -12,64 +12,14 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/nameTask"
+            android:id="@+id/nameBlock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:inputType="textPersonName"
             android:autoText="false"
-            android:text="Name/Topic"
+            android:text="Name"
             android:textColor="@color/textColorSecondary" />
-
-        <EditText
-            android:id="@+id/subjectTask"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:inputType="textPersonName"
-            android:textColor="@color/textColorSecondary"
-            android:text="Subject" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Priority Of Task"
-                android:textSize="18dp"
-                android:textColor="@color/textColorSecondary"
-                android:layout_weight="2"
-                android:paddingLeft="10dp" />
-            <Spinner
-                android:id="@+id/priorityTask"
-                android:layout_width="63dp"
-                android:layout_height="match_parent"
-                android:spinnerMode="dropdown"
-                android:layout_weight="0.36"
-                android:layout_gravity="top|right" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="0 lower 10 higher"
-            android:textSize="14dp"
-            android:textColor="@color/textColorSecondary"
-            android:layout_marginLeft="10dp" />
-
-        <EditText
-            android:id="@+id/noOfHoursTask"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:inputType="number"
-            android:autoText="false"
-            android:textColor="@color/textColorSecondary"
-            android:text="No Of Hours Required" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,17 +28,17 @@
             android:weightSum="1">
 
             <TextView
-                android:id="@+id/dateTimeLabel"
+                android:id="@+id/startTimeTextBlock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:text="Due On Date"
+                android:text="Start Time"
                 android:layout_weight="0.63"
                 android:textSize="18dp" />
 
             <EditText
-                android:id="@+id/dateTimeEditText"
+                android:id="@+id/startTimeBlock"
                 android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -99,11 +49,39 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/endDateBlockText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="End Time"
+                android:layout_weight="0.63"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/endDateBlock"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:ems="10"
+                android:editable="false"
+                android:enabled="true"
+                android:inputType="none" />
+        </LinearLayout>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Done"
-            android:id="@+id/doneButton" />
+            android:id="@+id/doneButtonBlock" />
 
     </LinearLayout>
 

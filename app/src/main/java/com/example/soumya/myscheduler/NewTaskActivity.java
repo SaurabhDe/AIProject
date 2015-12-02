@@ -101,8 +101,8 @@ public class NewTaskActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = pref.edit();
                     ArrayList<Tasks> currentTasks = new ArrayList<Tasks>();
                     try {
-                        currentTasks = (ArrayList<Tasks>) Serializer.DeSerializer(pref.getString("Uncompleted_Tasks",
-                                Serializer.Serializer(new ArrayList<Tasks>())));
+                        currentTasks = (ArrayList<Tasks>) Serializer.DeSerializerTasks(pref.getString("Uncompleted_Tasks",
+                                Serializer.SerializerTasks(new ArrayList<Tasks>())));
                         currentTasks.add(newTask);
 
                         for (int i = 0;i<currentTasks.size();i++) {
@@ -116,7 +116,7 @@ public class NewTaskActivity extends AppCompatActivity {
                         for (int i = 0;i<currentTasks.size();i++) {
                             Log.v("Extra", currentTasks.get(i).toString());
                         }
-                        editor.putString("Uncompleted_Tasks", Serializer.Serializer(currentTasks));
+                        editor.putString("Uncompleted_Tasks", Serializer.SerializerTasks(currentTasks));
                         editor.commit();
                         System.out.println(editor.toString());
                     } catch (Exception e) {

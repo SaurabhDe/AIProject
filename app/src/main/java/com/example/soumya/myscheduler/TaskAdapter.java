@@ -49,11 +49,11 @@ public class TaskAdapter extends BaseAdapter{
     }
 
 
-    public static int getIndexOfTask(ArrayList<Tasks> currentUncompletedTasks , Tasks task)
+    public static int getIndexOfTask(ArrayList<Tasks> current , Tasks task)
     {
-        for(Tasks t : currentUncompletedTasks)
-            if(task.compareTo(task) == 0 )
-                return currentUncompletedTasks.indexOf(t);
+        for(Tasks t : current)
+            if(t.compareTo(task) == 0 )
+                return current.indexOf(t);
         return -1;
     }
 
@@ -82,14 +82,14 @@ public class TaskAdapter extends BaseAdapter{
                     ArrayList<Tasks> currentUncompletedTasks = new ArrayList<Tasks>();
                     ArrayList<Tasks> currentCompletedTasks = new ArrayList<Tasks>();
                     try{
-                        currentUncompletedTasks = (ArrayList<Tasks>) Serializer.DeSerializer(pref.getString("Uncompleted_Tasks",
-                                Serializer.Serializer(new ArrayList<Tasks>())));
-                        currentCompletedTasks = (ArrayList<Tasks>) Serializer.DeSerializer(pref.getString("Completed_Tasks",
-                                Serializer.Serializer((new ArrayList<Tasks>()))));
+                        currentUncompletedTasks = (ArrayList<Tasks>) Serializer.DeSerializerTasks(pref.getString("Uncompleted_Tasks",
+                                Serializer.SerializerTasks(new ArrayList<Tasks>())));
+                        currentCompletedTasks = (ArrayList<Tasks>) Serializer.DeSerializerTasks(pref.getString("Completed_Tasks",
+                                Serializer.SerializerTasks((new ArrayList<Tasks>()))));
                         Log.v("Extra", rowItem.toString());
-                        int indexOfTask = getIndexOfTask(currentUncompletedTasks, rowItem);
-
+                        int indexOfTask;
                         if(cb.isChecked()) {
+                             indexOfTask = getIndexOfTask(currentUncompletedTasks, rowItem);
                             if(indexOfTask != -1) {
                                 Log.v("Extra", "removal: " + currentUncompletedTasks.remove(getIndexOfTask(currentUncompletedTasks, rowItem)));
                             } else {
@@ -98,6 +98,7 @@ public class TaskAdapter extends BaseAdapter{
                             rowItem.setCompleted(cb.isChecked());
                             currentCompletedTasks.add(rowItem);
                         } else {
+                            indexOfTask = getIndexOfTask(currentCompletedTasks, rowItem);
                             if(indexOfTask != -1) {
                                 Log.v("Extra", "removal: " + currentCompletedTasks.remove(getIndexOfTask(currentCompletedTasks, rowItem)));
                             } else {
@@ -114,8 +115,8 @@ public class TaskAdapter extends BaseAdapter{
                         for (int i = 0;i<currentUncompletedTasks.size();i++) {
                             Log.v("Extra", currentUncompletedTasks.get(i).toString());
                         }
-                        editor.putString("Uncompleted_Tasks", Serializer.Serializer(currentUncompletedTasks));
-                        editor.putString("Completed_Tasks", Serializer.Serializer(currentCompletedTasks));
+                        editor.putString("Uncompleted_Tasks", Serializer.SerializerTasks(currentUncompletedTasks));
+                        editor.putString("Completed_Tasks", Serializer.SerializerTasks(currentCompletedTasks));
                         editor.commit();
                     } catch (Exception e) {
                         e.printStackTrace();

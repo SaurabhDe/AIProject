@@ -13,12 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ListView;
 
 import com.alamkanak.weekview.WeekView;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -73,7 +69,7 @@ public class MainActivity extends AppCompatActivity
                         .commit();
                 break;
             case 3:
-                objFragment = new ExamsFragment();
+                objFragment = new BlockFragment();
                 fragmentManager1.beginTransaction()
                         .replace(R.id.container, objFragment)
                         .commit();
