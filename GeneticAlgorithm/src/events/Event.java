@@ -18,7 +18,7 @@ public class Event {
 		this.hoursRequired = hoursRequired;
 		this.priority = 1;
 		this.deadline = Integer.MAX_VALUE;
-		this.eventID =  ++Event.globalEventsID;
+		this.eventID =  ++Event.globalEventsID;        
 	}
 	
 	public void setPriority(int priority){

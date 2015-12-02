@@ -30,6 +30,12 @@ public class Main {
         System.out.println("Generation: " + generationCount);
         System.out.println("Genes:");
         String[] schedule = myPop.getFittest().toString().split(" ");
+        System.out.println("Bleh");
+        for (int i = 0; i < schedule.length; i++) {
+			String string = schedule[i];
+			System.out.println(string);
+		}
+        System.out.println("Bleh");
         for(int i  = 0 ; i < 3 ; i++)
         {
         	for(int j = 0 ; j < 5 ; j++)

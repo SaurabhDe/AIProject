@@ -12,8 +12,7 @@ public class EventList {
 
 	private static int scheduleCapacity = 0;
 	
-	public static void addEvent(String eventName , int hoursRequired)
-	{
+	public static void addEvent(String eventName , int hoursRequired) {
 		Event newEvent = new Event(eventName, hoursRequired) ;
 		eventList.add(newEvent);
 		eventNameIndexMap.put(eventName,eventList.size()-1);
@@ -89,5 +88,4 @@ public class EventList {
 			return 0;
 		return eventIDs.get( (int)(Math.random()* eventIDs.size()) );
 	}
-	
 }
