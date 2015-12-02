@@ -217,6 +217,8 @@ public class DayViewActivity extends AppCompatActivity implements WeekView.Month
             addEvent(b.getName() , calStart.get(Calendar.HOUR_OF_DAY) , calStart.get(Calendar.MINUTE) , calEnd.get(Calendar.HOUR_OF_DAY) , events , newYear , newMonth );
         }
 
+//        for()
+
         return events;
     }
 
