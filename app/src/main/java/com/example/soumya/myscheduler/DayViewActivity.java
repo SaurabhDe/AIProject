@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
+import com.example.soumya.myscheduler.GeneticAlgorithm.main.Schedule;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -153,7 +154,7 @@ public class DayViewActivity extends AppCompatActivity implements WeekView.Month
             return R.color.event_color_04;
     }
 
-    public void addEvent(String taskName,int startHr , int startMin , int endHr,  List<WeekViewEvent> events , int newYear, int newMonth)
+    public List<WeekViewEvent> addEvent(String taskName,int startHr , int startMin , int endHr,  List<WeekViewEvent> events , int newYear, int newMonth)
     {
         Calendar startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, startHr);
@@ -163,10 +164,11 @@ public class DayViewActivity extends AppCompatActivity implements WeekView.Month
         startTime.set(Calendar.YEAR, newYear);
         Calendar endTime = (Calendar) startTime.clone();
         endTime.add(Calendar.HOUR, endHr - startHr);      //1 hr always
-        endTime.set(Calendar.MONTH, newMonth-1);
+        endTime.set(Calendar.MONTH, newMonth - 1);
         WeekViewEvent event = new WeekViewEvent(1, taskName, startTime, endTime);
         event.setColor(getResources().getColor( this.getRandomColor() ));
         events.add(event);
+        return events;
     }
 
     @Override
@@ -174,11 +176,6 @@ public class DayViewActivity extends AppCompatActivity implements WeekView.Month
 
         // Populate the week view with some events.
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
-
-        //addEvent("E1",3,0,events,newYear, newMonth);
-        //addEvent("E1",5,45,events,newYear, newMonth);
-        //addEvent("E1",14,0,events,newYear, newMonth);
-
 
         //Get Events List
         SharedPreferences pref = this.getSharedPreferences("DATA", Context.MODE_PRIVATE);
@@ -217,8 +214,33 @@ public class DayViewActivity extends AppCompatActivity implements WeekView.Month
             addEvent(b.getName() , calStart.get(Calendar.HOUR_OF_DAY) , calStart.get(Calendar.MINUTE) , calEnd.get(Calendar.HOUR_OF_DAY) , events , newYear , newMonth );
         }
 
-//        for()
+        if (uncompletedTasks != null) {
+            int i = 9, day = 0;
+            for (Tasks t : uncompletedTasks) {
+                Log.v("Extra", "Result" + t.toString());
+                addEvent(t.getName(), i + 24 * day, 0, i + 1, events, newYear, newMonth);
+                i++;
+            }
+        } else {
+            Log.v("Extra", "Result null");
+        }
 
+//        Log.v("Extra", "Running algo now");
+//        ArrayList<Tasks> result = Schedule.getFinalSchedule(uncompletedTasks, 8);
+//        for(Tasks t: result) {
+//            Log.v("Extra", "Result: " + t.toString());
+//        }
+//        if (result != null) {
+//            int i = 9, day = 0;
+//            for (Tasks t : result) {
+//                Log.v("Extra", "Result" + t.toString());
+//                events = addEvent(t.getName(), i + 24 * day, 0, i + 1, events, newYear, newMonth);
+//                i++;
+//            }
+//        } else {
+//            Log.v("Extra", "Result null");
+//        }
+//        Log.v("Extra", "Algo completed");
         return events;
     }
 
